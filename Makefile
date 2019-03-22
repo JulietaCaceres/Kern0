@@ -7,6 +7,7 @@ OBJS := $(patsubst lib/, , $(SRCS:.c=.o))
 kern0: boot.o $(OBJS)
 	ld -m elf_i386 -Ttext 0x100000 --entry comienzo $^ -o $@
 	grub2-file --is-x86-multiboot $@
+	objdump -S $@ > $@.asm
 
 %.o: %.S
 	$(CC) $(CFLAGS) -c $<
