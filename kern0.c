@@ -1,13 +1,9 @@
-#define VGABUF ((volatile char *) 0xb8000)
+static volatile unsigned int* VGABUF = (volatile char*) 0xb8000;
 
 void comienzo(void) {
-    volatile char *buf = VGABUF;
 
-    *buf++ = 79;
-    *buf++ = 47;
-    *buf++ = 75;
-    *buf++ = 47;
-
-    while (1)
-        asm("hlt");
+        volatile unsigned int *p = VGABUF;
+        *p =0x2F4B2F4F;
+        while (1)
+                asm("hlt");
 }
